@@ -2,6 +2,7 @@ import 'package:appli_mobile_flutter/favoris.dart';
 import 'package:appli_mobile_flutter/home_page.dart';
 import 'package:appli_mobile_flutter/inscription.dart';
 import 'package:appli_mobile_flutter/profile.dart';
+import 'package:appli_mobile_flutter/ressources_seul.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePageConnect extends StatefulWidget {
@@ -30,13 +31,15 @@ class _MyHomePageConnect extends State<MyHomePageConnect> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const Profile(
-                          title: 'Profile',
+                    builder: (context) => const MyHomePage(
+                          title: 'deconnecte',
                         )),
               );
             },
             child: const Padding(
-                padding: EdgeInsets.all(10), child: Icon(Icons.person)),
+              padding: EdgeInsets.all(10),
+              child: Icon(Icons.power_settings_new),
+            ),
           ),
           GestureDetector(
             onTap: () {
@@ -81,10 +84,114 @@ class _MyHomePageConnect extends State<MyHomePageConnect> {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Center(
-                  child: Container(
-                    color: Colors.white,
-                  ),
-                ),
+                    child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Ressource(
+                                    title: 'Ressource',
+                                  )),
+                        );
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.blue,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Column(
+                          children: const [
+                            Text(
+                              'Le rire au travail et l’éthique',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            Text('Monde professionnel',
+                                style: TextStyle(fontSize: 15)),
+                            Text('Article', style: TextStyle(fontSize: 13)),
+                            Text(
+                                'Dans cet article, nous souhaitons apporter des éléments de réponse à la question du rire dans les situations professionnelles. Notre objectif est d’orienter les travaux de recherche portant plus grand....'),
+                            Text('Lire la suite...')
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.blue,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Column(
+                        children: const [
+                          Text(
+                            'Le rire au travail et l’éthique',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Text('Monde professionnel',
+                              style: TextStyle(fontSize: 15)),
+                          Text('Article', style: TextStyle(fontSize: 13)),
+                          Text(
+                              'Dans cet article, nous souhaitons apporter des éléments de réponse à la question du rire dans les situations professionnelles. Notre objectif est d’orienter les travaux de recherche portant plus grand'),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.blue,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Column(
+                        children: const [
+                          Text(
+                            'Le rire au travail et l’éthique',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Text('Monde professionnel',
+                              style: TextStyle(fontSize: 15)),
+                          Text('Article', style: TextStyle(fontSize: 13)),
+                          Text(
+                              'Dans cet article, nous souhaitons apporter des éléments de réponse à la question du rire dans les situations professionnelles. Notre objectif est d’orienter les travaux de recherche portant plus grand'),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.blue,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Column(
+                        children: const [
+                          Text(
+                            'Le rire au travail et l’éthique',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Text('Monde professionnel',
+                              style: TextStyle(fontSize: 15)),
+                          Text('Article', style: TextStyle(fontSize: 13)),
+                          Text(
+                              'Dans cet article, nous souhaitons apporter des éléments de réponse à la question du rire dans les situations professionnelles. Notre objectif est d’orienter les travaux de recherche portant plus grand'),
+                        ],
+                      ),
+                    ),
+                  ],
+                )),
               ],
             ),
           ),

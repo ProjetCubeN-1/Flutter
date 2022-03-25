@@ -2,6 +2,9 @@ import 'package:appli_mobile_flutter/home_page.dart';
 import 'package:appli_mobile_flutter/home_page_connecte.dart';
 import 'package:appli_mobile_flutter/login.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 
 import 'inscription.dart';
 import 'main.dart';
@@ -19,6 +22,27 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController mdpController = new TextEditingController();
+
+  Future userLogin() async {
+    // Getting value from Controller
+    String email = emailController.text;
+    String mdp = mdpController.text;
+
+    // SERVER LOGIN API URL
+    var url = 'https://localhost/premiersite/login.php';
+
+    // Store all data with Param Name.
+    var data = {'email': email, 'password': mdp};
+
+    // Starting Web API Call.
+    var response = await http.post(Uri.parse(url), body: json.encode(data));
+
+    // Getting Server response into variable.
+    var message = jsonDecode(response.body);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +98,15 @@ class _Login extends State<Login> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
+                                  const Text(
+                                    'Authentification',
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255)),
+                                  ),
                                   TextFormField(
+                                    controller: emailController,
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
@@ -89,14 +121,9 @@ class _Login extends State<Login> {
                                       labelText: 'E-mail',
                                     ),
                                     onSaved: (String? value) {},
-                                    validator: (String? value) {
-                                      return (value != null &&
-                                              value.contains('@'))
-                                          ? null
-                                          : 'Une adresse mail contient @';
-                                    },
                                   ),
                                   TextFormField(
+                                    controller: mdpController,
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
@@ -111,12 +138,7 @@ class _Login extends State<Login> {
                                       labelText: 'Mot de Passe',
                                     ),
                                     onSaved: (String? value) {},
-                                    validator: (String? value) {
-                                      return (value != null &&
-                                              value.contains('@'))
-                                          ? null
-                                          : 'Une adresse mail contient @';
-                                    },
+                                    obscureText: true,
                                   ),
                                 ],
                               ),
@@ -144,6 +166,7 @@ class _Login extends State<Login> {
                                     primary: Colors.white)),
                             ElevatedButton(
                                 onPressed: () {
+                                  userLogin();
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(

@@ -2,6 +2,7 @@ import 'package:appli_mobile_flutter/home_page.dart';
 import 'package:appli_mobile_flutter/home_page_connecte.dart';
 import 'package:appli_mobile_flutter/login.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Inscription extends StatefulWidget {
   const Inscription({Key? key, required this.title}) : super(key: key);
@@ -12,7 +13,23 @@ class Inscription extends StatefulWidget {
 }
 
 class _Inscription extends State<Inscription> {
-  @override
+  TextEditingController prenom = TextEditingController();
+  TextEditingController nom = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController mdp = TextEditingController();
+  TextEditingController dateNaissance = TextEditingController();
+
+  Future<List?> senddata() async {
+    await http.post(Uri.parse('http://localhost/premiersite/index.php'), body: {
+      "prenom": prenom.text,
+      "email": email.text,
+      "nom": nom.text,
+      "mdp": mdp.text,
+      "date_naissance": dateNaissance.text
+    });
+    return null;
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -67,6 +84,13 @@ class _Inscription extends State<Inscription> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
+                                  const Text(
+                                    'Inscription',
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255)),
+                                  ),
                                   TextFormField(
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
@@ -82,12 +106,7 @@ class _Inscription extends State<Inscription> {
                                       labelText: 'Nom',
                                     ),
                                     onSaved: (String? value) {},
-                                    validator: (String? value) {
-                                      return (value != null &&
-                                              value.contains('@'))
-                                          ? null
-                                          : 'Une adresse mail contient @';
-                                    },
+                                    controller: nom,
                                   ),
                                   TextFormField(
                                     decoration: InputDecoration(
@@ -104,12 +123,7 @@ class _Inscription extends State<Inscription> {
                                       labelText: 'Prénom',
                                     ),
                                     onSaved: (String? value) {},
-                                    validator: (String? value) {
-                                      return (value != null &&
-                                              value.contains('@'))
-                                          ? null
-                                          : 'Une adresse mail contient @';
-                                    },
+                                    controller: prenom,
                                   ),
                                   TextFormField(
                                     decoration: InputDecoration(
@@ -126,12 +140,7 @@ class _Inscription extends State<Inscription> {
                                       ),
                                     ),
                                     onSaved: (String? value) {},
-                                    validator: (String? value) {
-                                      return (value != null &&
-                                              value.contains('@'))
-                                          ? null
-                                          : 'Une adresse mail contient @';
-                                    },
+                                    controller: email,
                                   ),
                                   TextFormField(
                                     decoration: InputDecoration(
@@ -148,12 +157,7 @@ class _Inscription extends State<Inscription> {
                                       labelText: 'Date de Naissance',
                                     ),
                                     onSaved: (String? value) {},
-                                    validator: (String? value) {
-                                      return (value != null &&
-                                              value.contains('@'))
-                                          ? null
-                                          : 'Une adresse mail contient @';
-                                    },
+                                    controller: dateNaissance,
                                   ),
                                   TextFormField(
                                     decoration: InputDecoration(
@@ -170,12 +174,8 @@ class _Inscription extends State<Inscription> {
                                       labelText: 'Mot de passe',
                                     ),
                                     onSaved: (String? value) {},
-                                    validator: (String? value) {
-                                      return (value != null &&
-                                              value.contains('@'))
-                                          ? null
-                                          : 'Une adresse mail contient @';
-                                    },
+                                    controller: mdp,
+                                    obscureText: true,
                                   ),
                                 ],
                               ),
@@ -186,6 +186,7 @@ class _Inscription extends State<Inscription> {
                           children: [
                             ElevatedButton(
                                 onPressed: () {
+                                  senddata();
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
