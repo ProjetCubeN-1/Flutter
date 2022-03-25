@@ -23,7 +23,7 @@ class Login extends StatefulWidget {
 
 class _Login extends State<Login> {
   TextEditingController emailController = TextEditingController();
-  TextEditingController mdpController = new TextEditingController();
+  TextEditingController mdpController = TextEditingController();
 
   Future userLogin() async {
     // Getting value from Controller
@@ -31,7 +31,7 @@ class _Login extends State<Login> {
     String mdp = mdpController.text;
 
     // SERVER LOGIN API URL
-    var url = 'https://localhost/premiersite/login.php';
+    var url = 'https://localhost:8080/login/auth';
 
     // Store all data with Param Name.
     var data = {'email': email, 'password': mdp};

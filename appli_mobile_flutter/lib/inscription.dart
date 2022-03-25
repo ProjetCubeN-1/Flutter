@@ -20,7 +20,7 @@ class _Inscription extends State<Inscription> {
   TextEditingController dateNaissance = TextEditingController();
 
   Future<List?> senddata() async {
-    await http.post(Uri.parse('http://localhost/premiersite/index.php'), body: {
+    await http.post(Uri.parse('http://localhost:8080/login/create'), body: {
       "prenom": prenom.text,
       "email": email.text,
       "nom": nom.text,

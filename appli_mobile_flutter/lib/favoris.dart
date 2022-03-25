@@ -32,14 +32,15 @@ class _Favoris extends State<Favoris> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const Profile(
-                            title: 'Profile',
-                          )),
+                      builder: (context) => const MyHomePage(
+                        title: 'deconnecte',
+                      )),
                 );
               },
               child: const Padding(
-                  padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  child: Icon(Icons.person)),
+                padding: EdgeInsets.all(10),
+                child: Icon(Icons.power_settings_new),
+              ),
             ),
             GestureDetector(
               onTap: () {
