@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:appli_mobile_flutter/home_page.dart';
 import 'package:appli_mobile_flutter/home_page_connecte.dart';
 import 'package:appli_mobile_flutter/login.dart';
@@ -20,13 +22,17 @@ class _Inscription extends State<Inscription> {
   TextEditingController dateNaissance = TextEditingController();
 
   Future<List?> senddata() async {
-    await http.post(Uri.parse('http://localhost:8080/login/create'), body: {
+    Map json = {
       "prenom": prenom.text,
       "email": email.text,
       "nom": nom.text,
-      "mdp": mdp.text,
+      "pass": mdp.text,
       "date_naissance": dateNaissance.text
-    });
+    };
+    //encode a json string
+    var jsonEncodee = jsonEncode(json);
+    await http.post(Uri.parse('https://cube.bookingcal.cloud/api/inscription'),
+        body: jsonEncodee, headers: {"Content-Type": "application/json"});
     return null;
   }
 
@@ -156,7 +162,22 @@ class _Inscription extends State<Inscription> {
                                       ),
                                       labelText: 'Date de Naissance',
                                     ),
+                                    keyboardType: TextInputType.none,
+                                    readOnly: true,
                                     onSaved: (String? value) {},
+                                    onTap: () {
+                                      showDatePicker(
+                                              context: context,
+                                              initialDate: DateTime.now(),
+                                              firstDate: DateTime(1900),
+                                              lastDate: DateTime(2050))
+                                          .then((date) {
+                                        setState(() {
+                                          dateNaissance.text =
+                                              date.toString().substring(0, 10);
+                                        });
+                                      });
+                                    },
                                     controller: dateNaissance,
                                   ),
                                   TextFormField(
