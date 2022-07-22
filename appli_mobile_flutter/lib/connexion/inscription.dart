@@ -4,18 +4,19 @@ import 'package:appli_mobile_flutter/home_page.dart';
 import 'package:appli_mobile_flutter/home_page_connecte.dart';
 import 'package:appli_mobile_flutter/login.dart';
 import 'package:appli_mobile_flutter/validator.dart';
+import 'package:crypt/crypt.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class Inscription extends StatefulWidget {
-  const Inscription({Key? key, required this.title}) : super(key: key);
+class Inscription2 extends StatefulWidget {
+  const Inscription2({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  State<Inscription> createState() => _Inscription();
+  State<Inscription2> createState() => _Inscription2();
 }
 
-class _Inscription extends State<Inscription> {
+class _Inscription2 extends State<Inscription2> {
   TextEditingController prenom = TextEditingController();
   TextEditingController nom = TextEditingController();
   TextEditingController email = TextEditingController();
@@ -27,7 +28,7 @@ class _Inscription extends State<Inscription> {
       "prenom": prenom.text,
       "email": email.text,
       "nom": nom.text,
-      "pass": mdp.text,
+      "pass": Crypt.sha256(mdp.text).toString(),
       "date_naissance": dateNaissance.text
     };
     //encode a json string
@@ -291,7 +292,7 @@ class _Inscription extends State<Inscription> {
                                                   style:
                                                       ElevatedButton.styleFrom(
                                                           primary:
-                                                              Colors.grey)),
+                                                              Colors.white)),
                                               ElevatedButton(
                                                   onPressed: () {
                                                     Navigator.push(
@@ -313,7 +314,7 @@ class _Inscription extends State<Inscription> {
                                                   style:
                                                       ElevatedButton.styleFrom(
                                                           primary:
-                                                              Colors.grey)),
+                                                              Colors.white)),
                                             ])
                                       ],
                                     ))

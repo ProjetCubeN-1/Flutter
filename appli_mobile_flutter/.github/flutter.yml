@@ -1,0 +1,36 @@
+name: Flutter CI
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+env:
+  flutter_version: "2.10.x"
+jobs:
+  prIsWip:
+    name: PR is WIP?
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      isWip: ${{ steps.prIsWip.outputs.isWip }}
+
+  Setup-Flutter:
+    needs:
+      - prIsWip
+    if: needs.prIsWip.outputs.isWip == 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          flutter-version: ^3.0.2
+      - name: Restore packages
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze --no-congratulate
+
+      - name: Run tests
+        run: flutter test --coverage
