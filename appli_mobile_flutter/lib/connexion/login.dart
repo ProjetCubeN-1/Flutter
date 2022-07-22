@@ -1,27 +1,28 @@
 import 'package:appli_mobile_flutter/home_page.dart';
 import 'package:appli_mobile_flutter/home_page_connecte.dart';
+import 'package:appli_mobile_flutter/main.dart';
 import 'package:appli_mobile_flutter/validator.dart';
+import 'package:crypt/crypt.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
 import 'inscription.dart';
-import 'main.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class Login extends StatefulWidget {
-  const Login({Key? key, required this.title}) : super(key: key);
+class Login2 extends StatefulWidget {
+  const Login2({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  State<Login> createState() => _Login();
+  State<Login2> createState() => _Login2();
 }
 
-class _Login extends State<Login> {
+class _Login2 extends State<Login2> {
   TextEditingController emailController = TextEditingController();
   TextEditingController mdpController = TextEditingController();
 
@@ -30,7 +31,7 @@ class _Login extends State<Login> {
   Future userLogin() async {
     // Getting value from Controller
     String email = emailController.text;
-    String mdp = mdpController.text;
+    String mdp = Crypt.sha256(mdpController.text).toString();
 
     // SERVER LOGIN API URL
     var url = 'https://cube.bookingcal.cloud/api/connexion';
@@ -188,7 +189,7 @@ class _Login extends State<Login> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            const Inscription(
+                                                            const Inscription2(
                                                               title:
                                                                   'Inscription',
                                                             )),
@@ -201,7 +202,7 @@ class _Login extends State<Login> {
                                                       color: Colors.black),
                                                 ),
                                                 style: ElevatedButton.styleFrom(
-                                                    primary: Colors.grey)),
+                                                    primary: Colors.white)),
                                             ElevatedButton(
                                               onPressed: () {
                                                 if (_formKey.currentState!
@@ -223,8 +224,6 @@ class _Login extends State<Login> {
                                                     fontSize: 17,
                                                     color: Colors.black),
                                               ),
-                                              style: ElevatedButton.styleFrom(
-                                                    primary: Colors.grey),
                                             ),
                                           ]),
                                     ],

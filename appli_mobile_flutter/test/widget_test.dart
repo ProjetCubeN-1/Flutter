@@ -5,26 +5,54 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:appli_mobile_flutter/home_page.dart';
+import 'package:appli_mobile_flutter/inscription.dart';
+import 'package:appli_mobile_flutter/login.dart';
+import 'package:appli_mobile_flutter/validator2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:appli_mobile_flutter/main.dart';
-
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Test validator checkNotEmpty', (WidgetTester tester) async {
+    var result = checkNotEmpty.validate("");
+    expect(result, 'Entrer une valeur');
+  });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  testWidgets('Test validator CheckEmailFormat', (WidgetTester tester) async {
+    var result = checkEmailFormat.validate("az");
+    expect(result, 'Email Invalide');
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  testWidgets('Test validator checkPassword', (WidgetTester tester) async {
+    var result = checkPassword.validate("");
+    expect(result, 'Mot de passe invalide');
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('Test validator checkNotEmpty', (WidgetTester tester) async {
+    var result = checkLength.validate("");
+    expect(result, 'Doit contenir entre 8 et 15 caractères');
+  });
+
+  testWidgets('Inscription', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(
+      home: Inscription(title: 'incsription',)
+    ));
+    expect(find.byType(TextFormField), findsNWidgets(5));
+    expect(find.byType(ElevatedButton), findsNWidgets(2));
+  });
+
+  testWidgets('Connexion', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(
+      home: Login(title: 'login',)
+    ));
+    expect(find.byType(TextFormField), findsNWidgets(2));
+    expect(find.byType(ElevatedButton), findsNWidgets(2));
+  });
+
+  testWidgets('home_page', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(
+      home: MyHomePage(title: 'login',)
+    ));
+    expect(find.byType(Container), findsOneWidget);
   });
 }
